@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Battleships</title>
+    <meta name="description" content="Sink the computer's fleet before it sinks yours." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231d4e6e'/><circle cx='50' cy='50' r='22' fill='none' stroke='white' stroke-width='8'/><circle cx='50' cy='50' r='6' fill='%23e0533d'/></svg>" />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Battleships</h1>
+        <p class="tagline">Sink the computer's fleet before it sinks yours.</p>
+      </header>
+
+      <div class="controls">
+        <select id="level" aria-label="Computer strength">
+          <option value="easy">Easy computer</option>
+          <option value="normal" selected>Normal computer</option>
+        </select>
+        <button id="new" type="button" class="btn primary">New game</button>
+        <button id="reshuffle" type="button" class="btn">Reshuffle my fleet</button>
+      </div>
+
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+
+      <div class="arena">
+        <section class="side" aria-labelledby="enemy-title">
+          <h2 id="enemy-title">Enemy waters</h2>
+          <div id="enemy" class="grid enemy" role="grid" aria-label="Enemy waters: click to fire"></div>
+          <ul id="enemy-fleet" class="fleet" aria-label="Enemy fleet"></ul>
+        </section>
+        <section class="side" aria-labelledby="player-title">
+          <h2 id="player-title">Your fleet</h2>
+          <div id="player" class="grid player" aria-label="Your waters"></div>
+          <ul id="player-fleet" class="fleet" aria-label="Your fleet"></ul>
+        </section>
+      </div>
+
+      <section class="stats" aria-label="Your shooting">
+        <div><span class="label">Shots</span><span id="shots" class="value">0</span></div>
+        <div><span class="label">Hits</span><span id="hits" class="value">0</span></div>
+        <div><span class="label">Accuracy</span><span id="accuracy" class="value">–</span></div>
+      </section>
+
+      <details class="rules">
+        <summary>How to play</summary>
+        <ul>
+          <li>Each side hides five ships: Carrier (5), Battleship (4), Cruiser (3), Submarine (3) and Destroyer (2).</li>
+          <li>Click a square in enemy waters to fire. You and the computer take turns, one shot each.</li>
+          <li>When a ship is sunk it is revealed to the other side.</li>
+          <li>Sink all five enemy ships to win. Don't like your layout? Reshuffle before your first shot.</li>
+          <li>Keyboard: arrow keys aim, Enter or Space fires.</li>
+        </ul>
+      </details>
+    </main>
+  </body>
+</html>

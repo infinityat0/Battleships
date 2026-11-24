@@ -1,0 +1,103 @@
+:root {
+  --accent: #1d5f86;
+  --sea: #cfe3ef;
+  --sea-line: #a9c8da;
+  --ship: #5b6e7d;
+  --hit: #e0533d;
+  --miss: #ffffff;
+  --sunk: #7a2318;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: #6cb6e3;
+    --sea: #17324a;
+    --sea-line: #23465f;
+    --ship: #8aa0b2;
+    --hit: #ff7a63;
+    --miss: #9fb6c8;
+    --sunk: #b8463a;
+  }
+}
+
+main { max-width: 1000px; }
+
+.arena {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .arena { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.side { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.side h2 { margin: 0; font-size: 1.1rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 2px;
+  padding: 2px;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
+  background: var(--sea-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.grid .cell {
+  position: relative;
+  border: none;
+  padding: 0;
+  background: var(--sea);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.enemy .cell { cursor: crosshair; }
+.enemy .cell:not(.shot):hover { background: color-mix(in srgb, var(--sea), var(--accent) 25%); }
+.enemy.waiting .cell { cursor: progress; }
+.enemy .cell:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; z-index: 1; }
+.cell.shot { cursor: default; }
+
+.cell.ship { background: var(--ship); }
+
+.cell.miss::after,
+.cell.hit::after {
+  content: "";
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: var(--miss);
+  opacity: 0.85;
+}
+
+.cell.hit { background: var(--hit); }
+.cell.hit::after { background: #fff; inset: 30%; opacity: 0.9; }
+.cell.sunk { background: var(--sunk); }
+.cell.last { box-shadow: inset 0 0 0 3px var(--accent); }
+
+.cell.fresh::after { animation: splash 300ms ease-out; }
+@keyframes splash {
+  from { transform: scale(2.2); opacity: 0; }
+}
+
+.fleet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.fleet li { display: flex; align-items: center; gap: 6px; }
+.fleet .pips { display: inline-flex; gap: 2px; }
+.fleet .pips span { width: 8px; height: 8px; border-radius: 2px; background: var(--ship); }
+.fleet .pips span.h { background: var(--hit); }
+.fleet li.down { text-decoration: line-through; opacity: 0.6; }

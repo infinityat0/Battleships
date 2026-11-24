@@ -1,0 +1,11 @@
+{
+  "name": "battleships",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Battleships against the computer, in the browser",
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes serve@14.2.4 public",
+    "test": "node --test"
+  }
+}
